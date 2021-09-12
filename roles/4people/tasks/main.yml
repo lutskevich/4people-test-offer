@@ -1,6 +1,6 @@
 ---
 
-- name: register users
+- name: Register users
   find: 
     paths: "{{ people_userpath }}"
     file_type: file
@@ -9,7 +9,7 @@
   tags:
     - addusers
 
-- name: register local (internal) ip
+- name: Register local (internal) ip
   set_fact: local_ip="{{ item }}"
   with_items: "{{ ansible_all_ipv4_addresses }}"
   when: item != ansible_default_ipv4.address
@@ -17,7 +17,7 @@
     - redis
     - ufw
 
-- name: register local (internal) iface
+- name: Register local (internal) iface
   set_fact: local_iface="{{ item }}"
   with_items: "{{ ansible_interfaces }}"
   when: 
