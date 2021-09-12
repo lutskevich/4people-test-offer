@@ -27,11 +27,6 @@
     - redis
     - ufw
 
-
-- debug:
-    msg: "{{ local_iface }}"
-
-
 - import_tasks: addusers.yml
 - import_tasks: install.yml
 - import_tasks: redis.yml
