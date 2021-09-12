@@ -1,0 +1,28 @@
+---
+- name: Install Redis
+  apt:
+    name: redis-server
+    state: present
+  become: true
+  tags: 
+    - redis
+
+- name: Specify init-system for Redis
+  lineinfile:
+    path: /etc/redis/redis.conf
+    regexp: '^supervised'
+    line: "supervised systemd"
+  become: yes
+  notify: redis restart
+  tags:
+    - redis
+
+- name: Bind Redis to local ip 
+  lineinfile:
+    path: /etc/redis/redis.conf
+    regexp: '^bind'
+    line: "bind {{ local_ip }}"
+  become: yes
+  notify: redis restart
+  tags:
+    - redis

@@ -1,0 +1,31 @@
+---
+
+- name: Set ssh port 
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#Port'
+    line: "Port {{ people_sshport }}"
+  become: yes
+  notify: sshd restart
+  tags:
+    - ssh
+
+- name: Disable password autentification
+  lineinfile: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#PasswordAuthentication'
+    line: "PasswordAuthentication no"
+  become: yes
+  notify: sshd restart
+  tags:
+    - ssh
+
+- name: Allow public key authentication
+  lineinfile: 
+    path: /etc/ssh/sshd_config
+    regexp: '^#PubkeyAuthentication'
+    line: "PubkeyAuthentication yes"
+  become: yes
+  notify: sshd restart
+  tags:
+    - ssh

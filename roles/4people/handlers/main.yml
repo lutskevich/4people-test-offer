@@ -1,0 +1,20 @@
+---
+
+- name: redis restart
+  service:
+     name: redis-server
+     state: restarted
+     enabled: yes
+  become: yes
+
+- name: sshd restart
+  service: 
+    name: sshd
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: ufw enable
+  ufw:
+    state: enabled
+  become: yes

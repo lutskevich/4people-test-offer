@@ -1,0 +1,39 @@
+---
+
+- name: register users
+  find: 
+    paths: "{{ people_userpath }}"
+    file_type: file
+  register: users
+  delegate_to: localhost
+  tags:
+    - addusers
+
+- name: register local (internal) ip
+  set_fact: local_ip="{{ item }}"
+  with_items: "{{ ansible_all_ipv4_addresses }}"
+  when: item != ansible_default_ipv4.address
+  tags: 
+    - redis
+    - ufw
+
+- name: register local (internal) iface
+  set_fact: local_iface="{{ item }}"
+  with_items: "{{ ansible_interfaces }}"
+  when: 
+    - item != ansible_default_ipv4.interface 
+    - item != "lo"
+  tags:
+    - redis
+    - ufw
+
+
+- debug:
+    msg: "{{ local_iface }}"
+
+
+- import_tasks: addusers.yml
+- import_tasks: install.yml
+- import_tasks: redis.yml
+- import_tasks: ssh.yml
+- import_tasks: ufw.yml

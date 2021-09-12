@@ -1,0 +1,23 @@
+---
+
+- name: Create users
+  user:
+    name: "{{ item.path | basename }}"
+    password: "{{ people_userpassword }}"
+    groups: sudo
+    state: present
+    update_password: on_create
+  with_items: "{{ users.files }}"
+  become: yes
+  tags: 
+    - addusers
+
+- name: Set up authorized keys
+  authorized_key:
+    user: "{{ item | basename }}"
+    state: present
+    key: "{{ lookup('file', item) }}" 
+  with_fileglob: "{{ people_userpath }}/*"
+  become: yes
+  tags:
+    - addusers

@@ -1,0 +1,10 @@
+---
+
+- name: Install Apps
+  apt:
+    name: "{{ people_utils }}"
+    update_cache: yes
+    state: present
+  become: true
+  tags: 
+    - install

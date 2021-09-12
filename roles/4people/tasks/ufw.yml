@@ -1,0 +1,15 @@
+---
+
+- name: Edit firewall
+  template:
+    src: before_rules.j2
+    dest: /etc/ufw/before.rules
+    owner: root
+    group: root
+    mode: '0640'
+    backup: yes
+    force: yes
+  notify: 
+    - ufw enable
+  tags: 
+    - ufw

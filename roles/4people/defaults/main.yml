@@ -1,0 +1,9 @@
+---
+
+people_sshport: 2222                                                                                                                    
+people_userpassword: $6$rounds=656000$DocDoc$C5UtYBsBJEPyjx6H0SgFn8.x2UEZnKXByEEsXq3VCP9AyTPu5xWVB7BuJFUSvnBPI/8FCsnnIXrqZx4MPUzSv0    
+people_userpath: /etc/ansible/4people/roles/4people/files                                                                             
+people_utils:                                                                                                                  
+  - vim
+  - iotop
+  - tcpdump 
